@@ -14,4 +14,4 @@ def top_20_features(X_train, X_val, X_test):
     X_val_scaled = scaler.transform(X_val[features])
     X_test_scaled = scaler.transform(X_test[features])
 
-    return X_train_scaled, X_val_scaled, X_test_scaled
+    return X_train_scaled, X_val_scaled, X_test_scaled, scaler 

@@ -5,7 +5,7 @@ from sklearn.model_selection import train_test_split
 
 def import_data(filepath):
     # Import URL dataset
-    return pd.read_excel(filepath)
+    return pd.read_csv(filepath)
 
 def preprocessing(df):
     # Binarizing the Status Column (phishing = 1, legitimate = 0)
