@@ -1,4 +1,4 @@
-from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score, roc_curve, f1_score
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, roc_auc_score, roc_curve, f1_score, precision_score, recall_score
 import matplotlib.pyplot as plt
 from scipy import stats
 import numpy as np
@@ -28,22 +28,28 @@ def evaluation(trained_models, X_test, Y_test):
         # Calculate the Accuracy & Metrics
         matrix = confusion_matrix(Y_test, Y_pred)
         acc = accuracy_score(Y_test, Y_pred)
+        precision = precision_score(Y_test, Y_pred)
+        recall = recall_score(Y_test, Y_pred)
         auc = roc_auc_score(Y_test, Y_prob)
         f1 = f1_score(Y_test, Y_pred)
-        
+       
+       
         final_metrics[name] = {
             "Accuracy": acc,
             "Confusion Matrix": confusion_matrix(Y_test, Y_pred),
             "Classification Report": classification_report(Y_test, Y_pred, target_names=['Legitimate', 'Phishing']),
-            "AUC": auc
+            "AUC": auc,
+            "Precision": precision,
+            "Recall": recall
         }
-
 
         final_metrics_table.append({
             "Model": name,
             "Accuracy": f"{acc:.4f}",
-            "ROC-AUC": f"{auc:.4f}",
-            "F1-Score": f"{f1:.4f}"
+            "Precision": f"{precision:.4f}",
+            "Recall": f"{recall:.4f}",
+            "F1-Score": f"{f1:.4f}",
+            "ROC-AUC": f"{auc:.4f}"
         })
 
         # Visualization for ROC Curve
@@ -53,7 +59,7 @@ def evaluation(trained_models, X_test, Y_test):
         # Print Results
         print(f"Model: {name}")
         print(f"ROC-AUC: {auc:4f}\n")
-        print(f"Confusion Matric: \n{matrix}\n")
+        print(f"Confusion Matrix: \n{matrix}\n")
 
     # Plot and save the ROC Curve 
     plt.xlabel('False Positive Rate')
@@ -85,7 +91,7 @@ def feature_importance(model, features, model_name):
         # Visualization of Feature Engineering
         plt.figure(figsize=(10, 6))
         plt.title(f'Top 10 Feature Importances - {model_name}')
-        plt.barh(range(len(indices)), importances[indices], align='center')
+        plt.barh(range(len(indices)), importances[indices], color= '#1b115d', align='center')
         plt.yticks(range(len(indices)), [features[i] for i in indices])
         plt.xlabel('Relative Importance')
         plt.tight_layout()
