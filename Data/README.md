@@ -35,13 +35,13 @@
 ####  The percentage of numbers in the URL. More numbers means it's more likely to be phishing.
 
 ## length_hostname
-####  Long hostnames are commonly used to the actual domain out of the visible are in mobile browsers. It's a clear sign of phishing.
+####  Long hostnames are commonly used to keep the actual domain out of the visible are in mobile browsers. It's a clear sign of phishing.
 
 ## longest_word_path
 ####  Identifies the longest string in the URL. Long, nonsensical words are usually a sign of phishing.
 
 ## char_repeat
-####  Characters repeated more than two time raise red flags.
+####  Characters repeated more than two times raise red flags.
 
 ## avg_word_path
 ####  The average length of words in the URL. The red fglag is if it's > 10 characters.
@@ -56,7 +56,7 @@
 ####  Measurements of word length accross the URL to identify abnormalities. Presence of abnormalities could mean it's a phish.
 
 ## ratio_extRedirection
-####  The frequewncy of which a page redirects the user to external websites. High redirection is a sign of phishing.
+####  The frequency of which a page redirects the user to external websites. High redirection is a sign of phishing.
 
 ## ratio_extHyperlinks
 ####  The ratio of external hyperlinks to the total number of links. If it's more than 60%, it's most likely phishing.

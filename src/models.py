@@ -4,6 +4,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neural_network import MLPClassifier
 from xgboost import XGBClassifier
 
+# Function to define the 5 chosen algorithms
 def models_definition():
 
     return {
