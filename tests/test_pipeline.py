@@ -43,6 +43,40 @@ def test_binarization():
 
     assert all(col in X_train.columns for col in Features)
 
+# Test 3:  Does the prediction script load properly and returns a valid classification?
+def test_prediction_logic():
 
+    # Setup a sample input dictionary (must have the 20 features)
+    sample_input = {
+        'google_index': 1, 'page_rank': 3, 'nb_hyperlinks': 15, 'web_traffic': 5000,
+        'domain_age': 400, 'nb_www': 1, 'phish_hints': 0, 'ratio_intHyperlinks': 0.8,
+        'longest_word_path': 10, 'safe_anchor': 50, 'ratio_extHyperlinks': 0.2,
+        'ratio_digits_url': 0.05, 'ratio_extRedirection': 0.0, 'length_url': 50,
+        'avg_word_path': 8, 'char_repeat': 0, 'length_hostname': 20,
+        'shortest_word_host': 4, 'length_words_raw': 12, 'longest_words_raw': 15
+    }
 
+    # Check if the required assets exist (requires main.py to have run once)
+    model_exists = os.path.exists('trained models/random_forest.pkl')
+    scaler_exists = os.path.exists('trained models/scaler.pkl')
+
+    if not (model_exists and scaler_exists):
+        pytest.skip("Skipping prediction test: Model or Scaler files not found. Run main.py first.")
+
+    # Call the updated prediction function (now returns only the label)
+    label = predict_url(sample_input, model_name='random_forest')
+
+    # Assertions
+    assert label in ["PHISHING", "LEGITIMATE"], f"Unexpected label returned: {label}"
+    assert isinstance(label, str), "The returned result should be a string"
+
+# Test 4: Does the main.py run from start to finish?
+def test_main():
+    csvpath = "Data/Processed Dataset.csv"
+
+    results = main(csvpath)
+
+    assert len(results) == 5
+    assert 'XGBoost' in  results
+    assert 0 <= results['Random Forest']['Accuracy'] <= 1
 
